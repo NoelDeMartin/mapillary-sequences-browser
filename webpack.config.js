@@ -5,6 +5,20 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const inProduction = process.env.NODE_ENV === 'production';
 
+const scssLoaders = [
+    MiniCssExtractPlugin.loader,
+    'css-loader',
+    {
+        loader: 'postcss-loader',
+        options: {
+            config: {
+                path: path.resolve(__dirname, 'src/styles'),
+            },
+        },
+    },
+    'sass-loader',
+];
+
 module.exports = {
 
     entry: {
@@ -49,7 +63,11 @@ module.exports = {
                 use: [
                     {
                         loader: 'vue-loader',
-                        options: { extractCSS: true },
+                        options: {
+                            loaders: {
+                                scss: scssLoaders,
+                            },
+                        },
                     },
                     'eslint-loader',
                 ],
@@ -58,19 +76,7 @@ module.exports = {
 
             {
                 test: /\.scss$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            config: {
-                                path: path.resolve(__dirname, 'src/styles'),
-                            },
-                        },
-                    },
-                    'sass-loader',
-                ],
+                use: scssLoaders,
                 exclude: /node_modules/,
             },
 
@@ -90,6 +96,9 @@ module.exports = {
 
     resolve: {
         extensions: ['*', '.js', '.ts'],
+        alias: {
+            '@': path.join(__dirname, 'src'),
+        },
     },
 
 };
