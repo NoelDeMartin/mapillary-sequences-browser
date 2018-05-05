@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "rebornix.project-snippets",
+        "dbaeumer.vscode-eslint",
+        "shinnn.stylelint",
+        "eg2.tslint"
+    ]
+}
