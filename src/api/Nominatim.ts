@@ -41,4 +41,8 @@ export default class extends Api {
             .then((place: Place) => new Location(place.display_name, place.address.country));
     }
 
+    protected handleError(response: Response): Promise<any> {
+        throw new Error('[Nominatim API] Unknown Error');
+    }
+
 }

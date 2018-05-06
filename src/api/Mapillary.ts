@@ -47,18 +47,31 @@ export default class extends Api {
         this.clientId = clientId;
     }
 
-    public searchSequences(perPage: number = 10): Promise<Sequence[]> {
+    public searchSequences(page: number = 1): Promise<Sequence[]> {
         return this.get('sequences', {
+            '_page': page,
             'client_id': this.clientId,
             'max-lat': 90,
             'max-lon': 180,
             'min-lat': -90,
             'min-lon': -180,
-            'per_page': perPage,
+            'page': page,
+            'per_page': 10,
             'starred': true,
         })
             .then(collection => collection.features)
             .then(features => features.map((feature: Feature) => this.parseFeature(feature)));
+    }
+
+    public retrieveSequence(key: string): Promise<Sequence> {
+        return this.get('sequences/' + key, { client_id: this.clientId })
+            .then(feature => this.parseFeature(feature));
+    }
+
+    protected handleError(response: Response): Promise<any> {
+        return response.json().then(error => {
+            throw new Error('[Mapillary API] ' + error.message || 'Unknown error');
+        });
     }
 
     private parseFeature(feature: Feature): Sequence {

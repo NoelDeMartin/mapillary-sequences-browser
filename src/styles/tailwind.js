@@ -81,7 +81,7 @@ let colors = {
     'green-darkest': '#0f2f21',
     'green-darker': '#1a4731',
     'green-dark': '#1f9d55',
-    'green': '#38c172',
+    'green': '#0cc565',
     'green-light': '#51d88a',
     'green-lighter': '#a2f5bf',
     'green-lightest': '#e3fcec',
@@ -468,6 +468,7 @@ module.exports = {
         '32': '8rem',
         '48': '12rem',
         '64': '16rem',
+        '88': '22rem',
         '1/2': '50%',
         '1/3': '33.33333%',
         '2/3': '66.66667%',
@@ -631,6 +632,7 @@ module.exports = {
         '4': '1rem',
         '6': '1.5rem',
         '8': '2rem',
+        '12': '3rem',
         '88': '22rem',
     },
 
@@ -659,6 +661,7 @@ module.exports = {
         '4': '1rem',
         '6': '1.5rem',
         '8': '2rem',
+        '88': '22rem',
     },
 
     /*

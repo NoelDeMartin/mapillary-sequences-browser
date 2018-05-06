@@ -1,10 +1,10 @@
 <template>
     <div
         :class="{
-            'bg-green-lighter': active,
+            'bg-grey-dark': active,
             'bg-grey': !active,
         }"
-        class="sequence-preview relative flex px-4 py-2 cursor-pointer hover:bg-green-lighter"
+        class="sequence-preview relative flex px-4 py-2 cursor-pointer hover:bg-grey-dark"
         @click="$emit('click')"
     >
         <div class="relative w-48">
@@ -12,6 +12,15 @@
                 :src="sequence.firstImage.thumbnailUrl"
                 class="block w-48"
             >
+            <span
+                v-if="sequence.favorite"
+                class="absolute pin-t pin-l p-1 bg-black text-green opacity-75"
+            >
+                <zondicon
+                    name="star"
+                    class="block"
+                />
+            </span>
             <span class="absolute pin-r pin-b p-1 bg-black text-white opacity-75 text-xs">
                 {{ sequence.images.length }} images | {{ sequence.totalDistance | distance }}
             </span>
@@ -32,11 +41,16 @@
 </template>
 
 <script>
+import Zondicon from '@/components/Zondicon.vue';
+
 import Nominatim from '@/api/Nominatim';
 
 import { distance } from '@/utils/filters';
 
 export default {
+    components: {
+        Zondicon,
+    },
     filters: {
         distance,
     },
