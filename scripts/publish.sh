@@ -6,7 +6,8 @@ REPO_URL=`git remote get-url origin`
 set -e
 
 # build
-npm run prod
+# npm run prod -- Mapillary lib not working with production build
+npm run dev
 rm dist -rf && mkdir dist
 cp index.html dist
 cp build dist -r

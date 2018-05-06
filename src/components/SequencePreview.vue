@@ -77,14 +77,10 @@ export default {
 </script>
 
 <style lang="scss">
-    .sequence-preview {
-
-        .address {
-            top: 0;
-            bottom: config('textSizes.lg');
-            right: 0;
-            left: config('padding.2');
-        }
-
+    .sequence-preview .address {
+        top: 0;
+        right: 0;
+        bottom: config('textSizes.lg');
+        left: config('padding.2');
     }
 </style>

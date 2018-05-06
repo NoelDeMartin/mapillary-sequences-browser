@@ -46,12 +46,18 @@
                     </div>
                 </div>
                 <div class="flex flex-col justify-around">
-                    <div>
-                        <zondicon name="camera" />
+                    <div class="flex items-center">
+                        <zondicon
+                            class="block mr-1"
+                            name="camera"
+                        />
                         <span>{{ currentImage }} / {{ sequence.images.length }}</span>
                     </div>
-                    <div>
-                        <zondicon name="location-current" />
+                    <div class="flex items-center">
+                        <zondicon
+                            class="block mr-1"
+                            name="location-current"
+                        />
                         <span>{{ currentDistance | distance }} / {{ sequence.totalDistance | distance }}</span>
                     </div>
                 </div>

@@ -24,12 +24,12 @@ export default class Image {
             );
     }
 
-    public hasLocation(): boolean {
-        return typeof this.location !== 'undefined';
-    }
-
     public hasCoordinates(): boolean {
         return typeof this.latitude !== 'undefined' && typeof this.longitude !== 'undefined';
+    }
+
+    public hasLocation(): boolean {
+        return typeof this.location !== 'undefined';
     }
 
     public get thumbnailUrl(): string {
