@@ -1,5 +1,6 @@
 import Api from '@/api/Api';
-import Location from '@/api/Location';
+
+import Location from '@/models/Location';
 
 const API_URL = 'https://nominatim.openstreetmap.org/';
 
@@ -37,10 +38,7 @@ export default class extends Api {
             lat: latitude,
             lon: longitude,
         })
-            .then((place: Place) => {
-                console.log(place);
-                return new Location(place.display_name, place.address.country);
-            });
+            .then((place: Place) => new Location(place.display_name, place.address.country));
     }
 
 }

@@ -1,6 +1,10 @@
+import moment from 'moment';
+
 import Api from '@/api/Api';
-import Image from '@/api/Image';
-import Sequence from '@/api/Sequence';
+
+import Image from '@/models/Image';
+import Sequence from '@/models/Sequence';
+import User from '@/models/User';
 
 const API_URL = 'https://a.mapillary.com/v3/';
 
@@ -59,7 +63,10 @@ export default class extends Api {
 
     private parseFeature(feature: Feature): Sequence {
         const sequence = new Sequence(feature.properties.key);
-        sequence.author = feature.properties.username;
+        sequence.author = new User(feature.properties.user_key, feature.properties.username);
+        sequence.device = feature.properties.camera_make;
+        sequence.capturedAt = moment(feature.properties.captured_at);
+        sequence.createdAt = moment(feature.properties.created_at);
         sequence.images = [];
 
         const imageKeys = feature.properties.coordinateProperties.image_keys;

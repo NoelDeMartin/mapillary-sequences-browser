@@ -1,8 +1,15 @@
 <template>
-    <div class="bg-grey-light py-4 pr-80 w-full h-screen flex flex-col items-center justify-start">
+    <div class="bg-grey-light py-4 pl-4 pr-88 w-full h-screen flex flex-col items-center justify-start">
 
-        <h1 class="text-2xl font-bold">Mapillary Sequences Viewer</h1>
-        <h2 class="text-base font-normal mb-4">Explore Mapillary sequences!</h2>
+        <template v-if="activeSequence && activeSequence.images[0].hasLocation()">
+            <h1 class="text-2xl font-bold">{{ activeSequence.images[0].location.country }}</h1>
+            <h2 class="text-base font-normal mb-4">{{ activeSequence.images[0].location.address }}</h2>
+        </template>
+
+        <template v-else>
+            <h1 class="text-2xl font-bold">Mapillary Sequences Viewer</h1>
+            <h2 class="text-base font-normal mb-4">Explore Mapillary sequences!</h2>
+        </template>
 
         <div class="flex">
             <sequence-viewer
@@ -13,7 +20,7 @@
             <sequences-list
                 :sequences="sequences"
                 :active-sequence="activeSequence"
-                class="border-l border-grey-dark fixed pin-r pin-b pin-t overflow-auto"
+                class="fixed pin-r pin-b pin-t overflow-auto"
                 @select="updateActiveSequence"
             />
         </div>
