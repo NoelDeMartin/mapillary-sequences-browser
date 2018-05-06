@@ -1,7 +1,7 @@
 <template>
     <div
         id="mapillary-viewer"
-        style="width: 640px; height: 480px;"
+        class="relative w-viewer h-viewer"
     />
 </template>
 

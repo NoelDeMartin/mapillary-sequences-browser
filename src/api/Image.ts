@@ -1,9 +1,18 @@
 export default class {
 
-    private key: string;
+    public readonly key: string;
+
+    public latitude?: number = undefined;
+    public longitude?: number = undefined;
+
+    public location?: Location = undefined;
 
     constructor(key: string) {
         this.key = key;
+    }
+
+    public hasLocation(): boolean {
+        return typeof this.location !== 'undefined';
     }
 
     get url(): string {

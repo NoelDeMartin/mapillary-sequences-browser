@@ -1,17 +1,21 @@
+import Api from '@/api/Api';
 import Image from '@/api/Image';
 import Sequence from '@/api/Sequence';
 
 const API_URL = 'https://a.mapillary.com/v3/';
 
-export interface FeatureCollection {
+interface FeatureCollection {
     features: Feature[];
 }
 
-export interface Feature {
+interface Feature {
 
     id?: string;
 
-    geometry: any;
+    geometry: {
+        type: string;
+        coordinates: number[][];
+    };
 
     properties: {
         camera_make: string;
@@ -30,11 +34,12 @@ export interface Feature {
 
 }
 
-export default class {
+export default class extends Api {
 
     public readonly clientId: string;
 
     constructor(clientId: string) {
+        super(API_URL);
         this.clientId = clientId;
     }
 
@@ -48,19 +53,25 @@ export default class {
             'per_page': perPage,
             'starred': true,
         })
-            .then((collection: FeatureCollection) => {
-                return collection.features.map(feature => {
-                    const sequence = new Sequence(feature.properties.key);
-                    sequence.load(feature);
-                    return sequence;
-                });
-            });
+            .then(collection => collection.features)
+            .then(features => features.map((feature: Feature) => this.parseFeature(feature)));
     }
 
-    private get(endpoint: string, params: object): Promise<any> {
-        const url = new URL(API_URL + endpoint);
-        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-        return fetch(url.href).then(response => response.json());
+    private parseFeature(feature: Feature): Sequence {
+        const sequence = new Sequence(feature.properties.key);
+        sequence.author = feature.properties.username;
+        sequence.images = [];
+
+        const imageKeys = feature.properties.coordinateProperties.image_keys;
+        const coordinates = feature.geometry.coordinates;
+        for (let i = 0; i < imageKeys.length; i++) {
+            const image = new Image(feature.properties.coordinateProperties.image_keys[i]);
+            image.longitude = coordinates[i][0];
+            image.latitude = coordinates[i][1];
+            sequence.images.push(image);
+        }
+
+        return sequence;
     }
 
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen overflow-auto">
+    <div>
         <sequence-preview
             v-for="sequence in sequences"
             :key="sequence.key"

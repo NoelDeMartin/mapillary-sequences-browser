@@ -480,6 +480,7 @@ module.exports = {
         '1/6': '16.66667%',
         '5/6': '83.33333%',
         'full': '100%',
+        'viewer': '640px',
         'screen-90': '90vw',
         'screen': '100vw',
     },
@@ -516,6 +517,7 @@ module.exports = {
         '48': '12rem',
         '64': '16rem',
         'full': '100%',
+        'viewer': '480px',
         'screen': '100vh',
     },
 
@@ -629,6 +631,7 @@ module.exports = {
         '4': '1rem',
         '6': '1.5rem',
         '8': '2rem',
+        '80': '20rem',
     },
 
     /*
